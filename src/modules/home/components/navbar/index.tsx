@@ -15,7 +15,7 @@ import Icon from "../../../../components/icon";
 import Section from "../../../../components/section";
 import Sidebar from "../sidebar";
 
-function Navbar() {
+function Navbar({ isSticky = true }: { isSticky?: boolean }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <Stack
@@ -23,7 +23,7 @@ function Navbar() {
       zIndex="docked"
       bg="brand.merge"
       color="white"
-      position="sticky"
+      position={isSticky ? "sticky" : "static"}
       top={0}
     >
       <Section>
