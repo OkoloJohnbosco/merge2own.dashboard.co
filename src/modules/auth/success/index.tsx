@@ -23,7 +23,7 @@ function SuccessPage() {
         minH="calc(100vh - 82px)"
         bg="white"
       >
-        <Section h="full" py={10} justifyContent="center">
+        <Section h="full" py={10} justifyContent="center" maxW="550px">
           <Box maxW="200px" pb={4}>
             <Image src={tickImg} alt="" />
           </Box>

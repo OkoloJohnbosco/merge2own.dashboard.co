@@ -9,6 +9,7 @@ import Login from "./modules/auth/login";
 import Register from "./modules/auth/register";
 import SuccessPage from "./modules/auth/success";
 import Home from "./modules/home";
+import OnboardingPage from "./modules/onbaord";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
 
       <Route element={<OnBoardLayout />}>
         <Route path="register/success" element={<SuccessPage />} />
+        <Route path="onboarding" element={<OnboardingPage />} />
       </Route>
     </Routes>
   );

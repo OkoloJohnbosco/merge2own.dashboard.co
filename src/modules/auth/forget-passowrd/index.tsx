@@ -71,7 +71,7 @@ const ForgotPassword = () => {
             />
           </Stack>
 
-          <Button variant="primary" w="full" type="submit" data-testid="login">
+          <Button variant="primary" w="full" type="submit">
             Reset Password
           </Button>
         </Stack>

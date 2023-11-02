@@ -135,7 +135,7 @@ const Register = () => {
               </Stack>
             </RadioGroup>
           </Stack>
-          <Button variant="primary" w="full" type="submit" data-testid="login">
+          <Button variant="primary" w="full" type="submit">
             Create an account
           </Button>
         </Stack>

@@ -89,7 +89,7 @@ const Login = () => {
             />
           </Stack>
 
-          <Button variant="primary" w="full" type="submit" data-testid="login">
+          <Button variant="primary" w="full" type="submit">
             Sign in
           </Button>
         </Stack>
