@@ -74,17 +74,22 @@ function OnboardingPage() {
             </RadioGroup>
           </Stack>
 
-          <Stack>
+          <Stack spacing={10}>
             <Stack>
               <Heading fontSize="sm">
                 Please review the consent clause before you sign and submit this
                 form.
               </Heading>
-              <Button variant="link" size="sm" colorScheme="green">
+              <Button
+                w="fit-content"
+                variant="link"
+                size="sm"
+                colorScheme="green"
+              >
                 Consent clause
               </Button>
             </Stack>
-            <Stack w="fit-content" spacing={6}>
+            <Stack w="fit-content" spacing={4}>
               <Text>
                 By signing this form, you accept the terms of use and privacy
                 policy.
