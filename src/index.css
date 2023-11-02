@@ -1,0 +1,8 @@
+body button,
+body a {
+    /* outline: 0px solid #fff !important; */
+}
+
+* {
+    scroll-behavior: smooth;
+}

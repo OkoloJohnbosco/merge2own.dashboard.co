@@ -1,0 +1,85 @@
+import {
+  Box,
+  Button,
+  HStack,
+  IconButton,
+  Image,
+  Stack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { Menu } from "react-feather";
+import { Link } from "react-router-dom";
+import logoImg from "../../../../../src/assets/logo.svg";
+import Icon from "../../../../components/icon";
+import Section from "../../../../components/section";
+import Sidebar from "../sidebar";
+
+function Navbar() {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  return (
+    <Stack
+      py={4}
+      zIndex="docked"
+      bg="brand.merge"
+      color="white"
+      position="sticky"
+      top={0}
+    >
+      <Section>
+        <HStack spacing={4} justifyContent="space-between" alignItems="center">
+          <Box maxW="130px" maxH="50px">
+            <Image src={logoImg} alt="jsjsj" />
+          </Box>
+          <HStack
+            fontWeight="medium"
+            spacing={10}
+            display={{ base: "none", md: "flex" }}
+            textTransform="uppercase"
+            fontSize="sm"
+          >
+            <a href="#about">
+              <Text>About us</Text>
+            </a>
+            <a href="#partnership">
+              <Text>Partnerships</Text>
+            </a>
+            <a href="#works">
+              <Text>How it works</Text>
+            </a>
+            <Button
+              fontWeight="medium"
+              as={Link}
+              textTransform="uppercase"
+              fontSize="11px"
+              rounded="full"
+              size="md"
+              bg="brand.green"
+              color="white"
+              _hover={{
+                bg: "brand.green",
+              }}
+              to="/login"
+            >
+              Sign Up
+            </Button>
+          </HStack>
+          <IconButton
+            size="sm"
+            colorScheme="green"
+            display={{ base: "flex", md: "none" }}
+            _hover={{ bg: "brand.merge" }}
+            aria-label="menu button"
+            bg="brand.merge"
+            onClick={onOpen}
+          >
+            <Icon boxSize={4} iconComp={Menu} />
+          </IconButton>
+        </HStack>
+      </Section>
+      <Sidebar isOpen={isOpen} onClose={onClose} />
+    </Stack>
+  );
+}
+
+export default Navbar;
