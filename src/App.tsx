@@ -7,6 +7,7 @@ import OnBoardLayout from "./components/layout/onboard-layout";
 import ForgotPassword from "./modules/auth/forget-passowrd";
 import Login from "./modules/auth/login";
 import Register from "./modules/auth/register";
+import SuccessPage from "./modules/auth/success";
 import Home from "./modules/home";
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       </Route>
 
       <Route element={<OnBoardLayout />}>
-        {/* <Route path="login" element={<Login />} /> */}
+        <Route path="register/success" element={<SuccessPage />} />
       </Route>
     </Routes>
   );
