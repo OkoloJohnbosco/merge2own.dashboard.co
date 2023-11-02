@@ -48,20 +48,21 @@ function Navbar() {
               <Text>How it works</Text>
             </a>
             <Button
-              fontWeight="medium"
+              fontWeight="bold"
               as={Link}
               textTransform="uppercase"
               fontSize="11px"
-              rounded="full"
-              size="md"
-              bg="brand.green"
-              color="white"
-              _hover={{
-                bg: "brand.green",
+              rounded="10px"
+              outline="1px solid transparent"
+              _focus={{
+                outline: "1px solid white",
+                shadow: "0 0 0 3px #24694F",
               }}
+              // rounded="full"
+              variant="primary"
               to="/login"
             >
-              Sign Up
+              Register / Sign In
             </Button>
           </HStack>
           <IconButton
