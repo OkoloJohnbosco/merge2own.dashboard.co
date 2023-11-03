@@ -38,6 +38,7 @@ const Login = () => {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
+  // const authLogin = useAuthLogin();
 
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
     console.log(data);
