@@ -1,4 +1,5 @@
 import CustomInput from "@/components/input";
+import PasswordPopover from "@/components/password-popover";
 import useResetPassword from "@/hooks/auth/use-reset-password";
 import { Button, HStack, Heading, Stack, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,13 +22,14 @@ const schema = yup.object({
   confirm_password: yup
     .string()
     .required("Confirm password is required")
-    .oneOf([yup.ref("new_password")], "Confirm password does not match"),
+    .oneOf([yup.ref("password")], "Confirm password does not match"),
 });
 
 const ResetPassword = ({ kind = "reset" }: { kind?: "reset" | "create" }) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
@@ -58,13 +60,15 @@ const ResetPassword = ({ kind = "reset" }: { kind?: "reset" | "create" }) => {
       <form method="post" onSubmit={handleSubmit(submitLoginRequest)}>
         <Stack spacing={7}>
           <Stack spacing={3}>
-            <CustomInput
-              type="password"
-              label="Password"
-              placeholder="Password"
-              {...register("password")}
-              errors={errors}
-            />
+            <PasswordPopover password={watch("password")}>
+              <CustomInput
+                type="password"
+                label="Password"
+                placeholder="Password"
+                {...register("password")}
+                errors={errors}
+              />
+            </PasswordPopover>
             <CustomInput
               type="password"
               label="Confirm password"

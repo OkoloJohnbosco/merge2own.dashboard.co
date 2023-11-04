@@ -1,7 +1,22 @@
-import { Box, Button, HStack, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Stack,
+  Text,
+  chakra,
+  shouldForwardProp,
+} from "@chakra-ui/react";
+import { isValidMotionProp, motion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import { Check, XCircle } from "react-feather";
 
+const ChakraBox = chakra(motion.div, {
+  /**
+   * Allow motion props and non-Chakra props to be forwarded.
+   */
+  shouldForwardProp: (prop) =>
+    isValidMotionProp(prop) || shouldForwardProp(prop),
+});
 // Password interface
 export interface PasswordPopoverProps {
   password: string;
@@ -22,11 +37,10 @@ function PasswordRequirement({ meets, label }: PasswordRequirementProps) {
   return (
     <HStack
       fontSize="xs"
-      mt={7}
+      mt={3}
       color={meets ? "text-green-600" : "text-red-300"}
     >
-      {meets ? <Check size={14} /> : <XCircle size={14} />}{" "}
-      <Text ml={3}>{label}</Text>
+      {meets ? <Check size={14} /> : <XCircle size={14} />} <Text>{label}</Text>
     </HStack>
   );
 }
@@ -84,7 +98,7 @@ const PasswordPopover: React.FC<PasswordPopoverProps> = ({
   ];
 
   function getStrength(password: string) {
-    let multiplier = password.length > 5 ? 0 : 1;
+    let multiplier = password?.length > 5 ? 0 : 1;
 
     requirements.forEach((requirement) => {
       if (!requirement.re.test(password)) {
@@ -112,7 +126,10 @@ const PasswordPopover: React.FC<PasswordPopoverProps> = ({
         {children}
       </div>
       {popoverVisible && (
-        <Box
+        <ChakraBox
+          initial={{ opacity: 0.2, y: "30px" }}
+          animate={{ opacity: 1, y: "0" }}
+          exit={{ opacity: 0.2, y: "30px" }}
           w="full"
           pos="absolute"
           bg="white"
@@ -121,22 +138,18 @@ const PasswordPopover: React.FC<PasswordPopoverProps> = ({
           shadow="md"
           mt={2}
           zIndex={50}
-          top={15}
+          top={"60px"}
           ref={popoverRef}
         >
           <div>
             <ProgressBar color={color} value={strength} />
             <PasswordRequirement
               label="Includes at least 6 characters"
-              meets={password.length > 5}
+              meets={password?.length > 5}
             />
             {checks}
-            <Button
-              className="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-gray-700 absolute top-2 right-2 hover:bg-gray-300"
-              onClick={() => setPopoverVisible(false)}
-            ></Button>
           </div>
-        </Box>
+        </ChakraBox>
       )}
     </Stack>
   );
