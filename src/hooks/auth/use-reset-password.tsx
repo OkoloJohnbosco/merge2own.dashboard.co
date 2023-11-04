@@ -10,7 +10,7 @@ function useResetPassword() {
     }
   >({
     method: "post",
-    endpoint: ENDPOINTS.AUTH_RESGISTER,
+    endpoint: ENDPOINTS.AUTH_RESET_PASSWORD,
   });
 }
 

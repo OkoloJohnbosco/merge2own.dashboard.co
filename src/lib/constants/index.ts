@@ -7,6 +7,7 @@ export const ENDPOINTS = {
   VERIFY_SIGNUP_DETAILS: "auth/verify/signup",
   AUTH_RESGISTER: "user/create",
   AUTH_FORGOT_PASSWORD: "auth/initiatePasswordReset",
+  AUTH_RESET_PASSWORD: "auth/resetPassword",
   // categories
   GET_CUSTOMER_TYPES: "user/customertypes",
 
