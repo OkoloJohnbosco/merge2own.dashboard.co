@@ -1,4 +1,5 @@
 import CustomInput from "@/components/input";
+import useAuthLogin from "@/hooks/auth/use-auth-login";
 import {
   Button,
   Checkbox,
@@ -38,29 +39,10 @@ const Login = () => {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
+  const authLogin = useAuthLogin();
 
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
-    console.log(data);
-    // signIn("credentials", {
-    //   redirect: false,
-    //   email: data.email,
-    //   password: data.password,
-    //   callbackUrl: "/login",
-    // }).then((res) => {
-    //   setIsLoading(false);
-    //   if (!res?.ok) {
-    //     return reqFailed();
-    //   }
-    //   setTimeout(() => {
-    //     reqWarning({
-    //       title: "Token Expired",
-    //       description: "Please login again",
-    //     });
-    //     signOut();
-    //   }, 86400000);
-    //   reqSuccess();
-    //   router.replace(query?.callbackUrl ? (query?.callbackUrl as string) : "/");
-    // });
+    authLogin.mutateAsync(data).catch(console.log);
   };
 
   return (
@@ -89,7 +71,12 @@ const Login = () => {
             />
           </Stack>
 
-          <Button variant="primary" w="full" type="submit" data-testid="login">
+          <Button
+            variant="primary"
+            w="full"
+            type="submit"
+            isLoading={authLogin.isLoading}
+          >
             Sign in
           </Button>
         </Stack>

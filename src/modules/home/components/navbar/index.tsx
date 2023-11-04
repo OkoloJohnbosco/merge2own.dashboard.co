@@ -5,7 +5,6 @@ import {
   IconButton,
   Image,
   Stack,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { Menu } from "react-feather";
@@ -15,7 +14,7 @@ import Icon from "../../../../components/icon";
 import Section from "../../../../components/section";
 import Sidebar from "../sidebar";
 
-function Navbar() {
+function Navbar({ isSticky = true }: { isSticky?: boolean }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <Stack
@@ -23,7 +22,7 @@ function Navbar() {
       zIndex="docked"
       bg="brand.merge"
       color="white"
-      position="sticky"
+      position={isSticky ? "sticky" : "static"}
       top={0}
     >
       <Section>
@@ -38,15 +37,6 @@ function Navbar() {
             textTransform="uppercase"
             fontSize="sm"
           >
-            <a href="#about">
-              <Text>About us</Text>
-            </a>
-            <a href="#partnership">
-              <Text>Partnerships</Text>
-            </a>
-            <a href="#works">
-              <Text>How it works</Text>
-            </a>
             <Button
               fontWeight="bold"
               as={Link}

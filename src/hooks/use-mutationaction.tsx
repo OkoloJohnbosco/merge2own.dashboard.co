@@ -1,6 +1,6 @@
 import { ENDPOINTS } from "@/lib/constants";
 import { secureRequest } from "@/lib/utils/api.utils";
-import { NigalexResponseType, ResponseErrorType } from "@/types/api.types";
+import { QuikeeResponseType, ResponseErrorType } from "@/types/api.types";
 import { useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 
@@ -37,22 +37,22 @@ function useCustomMutation<
   const toast = useToast({
     position: "top-right",
     variant: "left-accent",
-    duration: 5000,
+    duration: 6000,
     isClosable: true,
     containerStyle: {
-      maxWidth: "400px",
-      fontSize: "nm",
+      maxWidth: "450px",
+      fontSize: "xs",
     },
   });
 
   const mutatationResult = useMutation<
-    NigalexResponseType<P>,
+    QuikeeResponseType<P>,
     ResponseErrorType,
     T
   >(mutationFn, {
     mutationKey: endpoint,
 
-    onError: (err) => {
+    onError: (err: ResponseErrorType) => {
       if (showFailureToast) {
         toast({
           title: `Request Failed`,
@@ -62,7 +62,7 @@ function useCustomMutation<
       }
       mutatationResult.reset();
     },
-    onSettled: (res, err) => {
+    onSettled: (res: QuikeeResponseType<P>, err: ResponseErrorType) => {
       if (err) mutatationResult.reset();
       if (!err && showSuccessToast) {
         toast({

@@ -1,6 +1,6 @@
 import { ENDPOINTS } from "@/lib/constants";
 import { secureRequest } from "@/lib/utils/api.utils";
-import { NigalexResponseType, ResponseErrorType } from "@/types/api.types";
+import { QuikeeResponseType, ResponseErrorType } from "@/types/api.types";
 import { useQuery } from "@tanstack/react-query";
 
 export const getQueryAction = (payload: any) => {
@@ -26,7 +26,7 @@ function useQueryActionHook<T>(data: any) {
     ...data,
   });
 
-  const queryResult = useQuery<NigalexResponseType<T>, ResponseErrorType>({
+  const queryResult = useQuery<QuikeeResponseType<T>, ResponseErrorType>({
     queryFn,
     queryKey: queryKey || endpoint,
 

@@ -55,7 +55,7 @@ const components = {
         color: "white",
         fontSize: "nm",
         // px: "40px",
-        rounded: "2px",
+        rounded: "4px",
         height: "40px",
         _hover: {
           _disabled: {
@@ -72,7 +72,7 @@ const components = {
         color: "brand.darkest",
         fontSize: "nm",
         // px: "40px",
-        rounded: "2px",
+        rounded: "4px",
         height: "40px",
         _hover: {
           _disabled: {

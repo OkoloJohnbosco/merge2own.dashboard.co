@@ -1,14 +1,15 @@
 // Api Endpoints
 export const ENDPOINTS = {
-  // API_BASE_URL: process.env.NEXT_PUBLIC_BACKEND,
-  API_BASE_URL: "https://api.nigalexbid.com.ng/api/",
+  API_BASE_URL: "https://api.merge2own.com/api/",
 
   // Auth endpoints
   AUTH_INITIATE_SIGNIN: "auth/login",
-  VERIFY_SIGNUP_DETAILS: "/auth/verify/signup",
-
+  VERIFY_SIGNUP_DETAILS: "auth/verify/signup",
+  AUTH_RESGISTER: "user/create",
+  AUTH_FORGOT_PASSWORD: "auth/initiatePasswordReset",
+  AUTH_RESET_PASSWORD: "auth/resetPassword",
   // categories
-  GET_CATEGORIES: "categories",
+  GET_CUSTOMER_TYPES: "user/customertypes",
 
   // Admin
   CREATE_ADMIN_USER: "user/create",
@@ -74,19 +75,5 @@ export const ENDPOINTS = {
 export const STOREID = "fbn46374683";
 
 export const NAMESPACE = {
-  // Bid
-  GET_SINGLE_BID: "GET_SINGLE_BID",
-  GET_SUBMITTED_BIDS: "GET_SUBMITTED_BIDS",
-  GET_ALL_BIDS: "GET_ALL_BIDS",
-  AUTH_CHANGE_PASSWORD: "AUTH_CHANGE_PASSWORD",
-
-  // Admin
-  GET_ALL_ADMINS: "GET_ALL_ADMINS",
-  // categories
-  GET_CATEGORIES: "GET_CATEGORIES",
-
-  // user
-  GET_USER_DETAILS: "GET_USER_DETAILS",
-  GET_REPORT_DATA: "GET_REPORT_DATA",
-  GET_ALL_VENDORS: "GET_ALL_VENDORS",
+  GET_CUSTOMER_TYPES: "GET_CUSTOMER_TYPES",
 };
