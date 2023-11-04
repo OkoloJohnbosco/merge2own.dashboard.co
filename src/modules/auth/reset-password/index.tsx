@@ -4,7 +4,7 @@ import useResetPassword from "@/hooks/auth/use-reset-password";
 import { Button, HStack, Heading, Stack, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import * as yup from "yup";
 
 type Inputs = {
@@ -34,6 +34,7 @@ const ResetPassword = ({ kind = "reset" }: { kind?: "reset" | "create" }) => {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
+  const navigate = useNavigate();
   const resetPassword = useResetPassword();
   let [searchParams] = useSearchParams();
   const token = searchParams.get("token")!;
@@ -44,6 +45,7 @@ const ResetPassword = ({ kind = "reset" }: { kind?: "reset" | "create" }) => {
         token,
         new_password: data.password,
       })
+      .then(() => navigate("/login"))
       .catch(console.log);
   };
   const text = { reset: "Reset", create: "Create" }[kind];
