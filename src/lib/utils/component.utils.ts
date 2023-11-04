@@ -16,6 +16,12 @@ export const contacts = [
   { img: locationImg, title: "Location", value: "WaterLoo, Canada" },
 ];
 
+export const truncateWord = (str: string, len = 30) => {
+  if (str.trim().length < len) return str;
+
+  return `${str.substring(0, len - 1)}..`;
+};
+
 export const reasons = [
   {
     title: "Al -Driven Matching System",
