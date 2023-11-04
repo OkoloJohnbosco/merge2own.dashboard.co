@@ -1,11 +1,16 @@
+import IfElse from "@/components/if-else";
 import CustomInput from "@/components/input";
+import useAuthRegister from "@/hooks/auth/use-auth-register";
+import useGetCustomerTypes from "@/hooks/cusomer/use-get-customer-types";
 import {
+  Box,
   Button,
   HStack,
   Heading,
   Radio,
   RadioGroup,
   SimpleGrid,
+  SkeletonText,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -16,26 +21,20 @@ import { Link } from "react-router-dom";
 import * as yup from "yup";
 
 type Inputs = {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  phoneNumber?: string | undefined;
-  password: string;
+  phone_number: string;
 };
 
 const schema = yup.object({
-  firstName: yup.string().required("First name is required").trim(),
-  lastName: yup.string().required("Last name is required").trim(),
-  phoneNumber: yup.string().trim(),
+  first_name: yup.string().required("First name is required").trim(),
+  last_name: yup.string().required("Last name is required").trim(),
+  phone_number: yup.string().required("Phone number is required").trim(),
   email: yup
     .string()
     .required("email is required")
     .email("Enter a valid email")
-    .trim(),
-  password: yup
-    .string()
-    .required("please input password")
-    .min(3, "minimum of 3 characters")
     .trim(),
 });
 
@@ -47,29 +46,17 @@ const Register = () => {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = React.useState<string>("");
+  const customerTypes = useGetCustomerTypes();
+  const authRegister = useAuthRegister();
+
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
-    console.log(data);
-    // signIn("credentials", {
-    //   redirect: false,
-    //   email: data.email,
-    //   password: data.password,
-    //   callbackUrl: "/login",
-    // }).then((res) => {
-    //   setIsLoading(false);
-    //   if (!res?.ok) {
-    //     return reqFailed();
-    //   }
-    //   setTimeout(() => {
-    //     reqWarning({
-    //       title: "Token Expired",
-    //       description: "Please login again",
-    //     });
-    //     signOut();
-    //   }, 86400000);
-    //   reqSuccess();
-    //   router.replace(query?.callbackUrl ? (query?.callbackUrl as string) : "/");
-    // });
+    authRegister
+      .mutateAsync({
+        ...data,
+        customer_type_id: value,
+      })
+      .catch(console.log);
   };
 
   return (
@@ -83,13 +70,13 @@ const Register = () => {
           <Stack spacing={5}>
             <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
               <CustomInput
-                {...register("firstName")}
+                {...register("first_name")}
                 errors={errors}
                 label="First Name"
                 placeholder="John"
               />
               <CustomInput
-                {...register("lastName")}
+                {...register("last_name")}
                 errors={errors}
                 label="Last name"
                 placeholder="Doe"
@@ -105,37 +92,51 @@ const Register = () => {
                 placeholder="Enter email"
               />
               <CustomInput
-                {...register("phoneNumber")}
+                {...register("phone_number")}
                 errors={errors}
                 label="Phone number (optional)"
                 placeholder="+17382372"
               />
             </SimpleGrid>
-            <CustomInput
-              {...register("password")}
-              errors={errors}
-              type="password"
-              label="password"
-              placeholder="Password"
-            />
           </Stack>
 
-          <Stack>
-            <Text>What best describes you? </Text>
-            <RadioGroup size="sm" onChange={setValue} value={value}>
-              <Stack>
-                <Radio value="1">Buyer</Radio>
-                <Radio value="2">Investor</Radio>
-                <Radio value="3">
-                  Home service provider (e.g. plumber. gardener)
-                </Radio>
-                <Radio value="4">
-                  Real estate provider (e.g. mortgage broker, lawyer)
-                </Radio>
-              </Stack>
-            </RadioGroup>
-          </Stack>
-          <Button variant="primary" w="full" type="submit">
+          <IfElse
+            ifOn={!customerTypes.isLoading && !!customerTypes?.value}
+            ifOnElse={customerTypes.isLoading && !customerTypes?.value}
+            onElse={
+              <Box maxW="300px">
+                <SkeletonText
+                  mt="4"
+                  startColor="gray.200"
+                  endColor="gray.300"
+                  noOfLines={5}
+                  spacing="2"
+                  skeletonHeight="2"
+                />
+              </Box>
+            }
+          >
+            <Stack>
+              <Text>What best describes you? </Text>
+              <RadioGroup size="sm" onChange={setValue} value={value}>
+                <Stack>
+                  {customerTypes?.value?.map((item) => (
+                    <Radio key={item.id} value={item.id}>
+                      {item.name}
+                    </Radio>
+                  ))}
+                </Stack>
+              </RadioGroup>
+            </Stack>
+          </IfElse>
+
+          <Button
+            isDisabled={!value}
+            variant="primary"
+            w="full"
+            type="submit"
+            isLoading={authRegister.isLoading}
+          >
             Create an account
           </Button>
         </Stack>

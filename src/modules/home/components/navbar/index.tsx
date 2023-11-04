@@ -5,7 +5,6 @@ import {
   IconButton,
   Image,
   Stack,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { Menu } from "react-feather";
@@ -38,15 +37,6 @@ function Navbar({ isSticky = true }: { isSticky?: boolean }) {
             textTransform="uppercase"
             fontSize="sm"
           >
-            <a href="#about">
-              <Text>About us</Text>
-            </a>
-            <a href="#partnership">
-              <Text>Partnerships</Text>
-            </a>
-            <a href="#works">
-              <Text>How it works</Text>
-            </a>
             <Button
               fontWeight="bold"
               as={Link}

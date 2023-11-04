@@ -9,7 +9,7 @@ function useAuthRegister() {
       last_name: string;
       phone_number: string;
       email: string;
-      customer_type_id: number;
+      customer_type_id: string;
     }
   >({
     method: "post",

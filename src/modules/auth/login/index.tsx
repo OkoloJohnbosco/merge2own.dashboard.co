@@ -1,6 +1,5 @@
 import CustomInput from "@/components/input";
 import useAuthLogin from "@/hooks/auth/use-auth-login";
-import useGetCustomerTypes from "@/hooks/cusomer/use-get-customer-types";
 import {
   Button,
   Checkbox,
@@ -41,7 +40,6 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
   const authLogin = useAuthLogin();
-  const customerTypes = useGetCustomerTypes();
 
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
     console.log(data);
