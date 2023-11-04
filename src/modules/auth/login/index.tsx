@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 type Inputs = {
@@ -39,10 +39,14 @@ const Login = () => {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
+  const navigate = useNavigate();
   const authLogin = useAuthLogin();
 
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
-    authLogin.mutateAsync(data).catch(console.log);
+    authLogin
+      .mutateAsync(data)
+      .then(() => navigate("/onboarding"))
+      .catch(console.log);
   };
 
   return (
