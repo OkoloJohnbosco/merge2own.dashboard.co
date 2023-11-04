@@ -1,4 +1,4 @@
-import { truncateWord } from "@/lib/utils/common.utils";
+import { truncateWord } from "@/lib/utils/component.utils";
 import { InputWrapperProps } from "@/types/component.types";
 import {
   Button,
@@ -25,20 +25,6 @@ interface FileUploadProps {
   btnColor?: string;
   placeholder?: string;
 }
-// const [selectedImages, setSelectedImages] = React.useState<File[]>([]);
-// const fileInputRef = React.useRef<HTMLInputElement>(null);
-
-// const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//   const files = e.target.files;
-//   if (files) {
-//     const selectedFiles = Array.from(files) as File[];
-//     if (selectedImages.length + selectedFiles.length <= 4) {
-//       setSelectedImages((prevImages) => [...prevImages, ...selectedFiles]);
-//     } else {
-//       // Handle error or display a message that the limit has been reached
-//     }
-//   }
-// };
 
 const CustomFileInput = React.forwardRef<
   Ref,
