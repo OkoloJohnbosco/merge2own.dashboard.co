@@ -7,16 +7,16 @@ export const secureRequest = async ({
   body = undefined,
   headers: requestHeader,
 }: SecureRequestProps) => {
-  const token = "session?.accessToken";
+  // const token = "session?.accessToken";
   const givenMethod = method.toLocaleLowerCase() as CustomMethod;
 
   const nigalexHeader = {
-    Authorization: `Bearer ${token}`,
+    // Authorization: `Bearer ${token}`,
     "Content-Type": url.includes("bid/create")
       ? "application/*"
       : "application/json",
     // "Content-Type": "application/json, multipart/form-data",
-    "X-API-KEY": "448085861cb00206343e5dd25e172d3044a4",
+    "X-API-KEY": "37b7cf95233f5f90be3d51840648976f",
   };
 
   const headers = { ...nigalexHeader, ...requestHeader };

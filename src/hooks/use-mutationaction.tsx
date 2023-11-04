@@ -4,13 +4,8 @@ import { QuikeeResponseType, ResponseErrorType } from "@/types/api.types";
 import { useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 
-// @ts-ignore
 const getMutationAction = (mutationData: any) => {
   const { endpoint, method, headers, isNigalexApi = true } = mutationData;
-  const API_BASE_URL =
-    import.meta.env.MODE === "development"
-      ? ENDPOINTS.API_BASE_URL
-      : ENDPOINTS.API_BASE_URL;
 
   const url = isNigalexApi ? ENDPOINTS.API_BASE_URL + endpoint : endpoint;
 
@@ -29,7 +24,6 @@ const getMutationAction = (mutationData: any) => {
 function useCustomMutation<
   P = Record<string, unknown>,
   T = Record<string, unknown>
-  // @ts-ignore
 >(mutationData: any) {
   const {
     mutationFn,

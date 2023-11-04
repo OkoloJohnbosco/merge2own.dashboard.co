@@ -8,7 +8,7 @@ export const ENDPOINTS = {
   AUTH_RESGISTER: "api/user/create",
   AUTH_FORGOT_PASSWORD: "api/auth/initiatePasswordReset",
   // categories
-  GET_CATEGORIES: "categories",
+  GET_CUSTOMER_TYPES: "user/customertypes",
 
   // Admin
   CREATE_ADMIN_USER: "user/create",
@@ -74,19 +74,5 @@ export const ENDPOINTS = {
 export const STOREID = "fbn46374683";
 
 export const NAMESPACE = {
-  // Bid
-  GET_SINGLE_BID: "GET_SINGLE_BID",
-  GET_SUBMITTED_BIDS: "GET_SUBMITTED_BIDS",
-  GET_ALL_BIDS: "GET_ALL_BIDS",
-  AUTH_CHANGE_PASSWORD: "AUTH_CHANGE_PASSWORD",
-
-  // Admin
-  GET_ALL_ADMINS: "GET_ALL_ADMINS",
-  // categories
-  GET_CATEGORIES: "GET_CATEGORIES",
-
-  // user
-  GET_USER_DETAILS: "GET_USER_DETAILS",
-  GET_REPORT_DATA: "GET_REPORT_DATA",
-  GET_ALL_VENDORS: "GET_ALL_VENDORS",
+  GET_CUSTOMER_TYPES: "GET_CUSTOMER_TYPES",
 };

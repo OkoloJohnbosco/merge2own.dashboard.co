@@ -1,4 +1,6 @@
 import CustomInput from "@/components/input";
+import useAuthLogin from "@/hooks/auth/use-auth-login";
+import useGetCustomerTypes from "@/hooks/cusomer/use-get-customer-types";
 import {
   Button,
   Checkbox,
@@ -38,30 +40,15 @@ const Login = () => {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
-  // const authLogin = useAuthLogin();
+  const authLogin = useAuthLogin();
+  const customerTypes = useGetCustomerTypes();
 
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
     console.log(data);
-    // signIn("credentials", {
-    //   redirect: false,
-    //   email: data.email,
-    //   password: data.password,
-    //   callbackUrl: "/login",
-    // }).then((res) => {
-    //   setIsLoading(false);
-    //   if (!res?.ok) {
-    //     return reqFailed();
-    //   }
-    //   setTimeout(() => {
-    //     reqWarning({
-    //       title: "Token Expired",
-    //       description: "Please login again",
-    //     });
-    //     signOut();
-    //   }, 86400000);
-    //   reqSuccess();
-    //   router.replace(query?.callbackUrl ? (query?.callbackUrl as string) : "/");
-    // });
+    authLogin.mutateAsync({
+      email: "",
+      password: "",
+    });
   };
 
   return (
@@ -90,7 +77,12 @@ const Login = () => {
             />
           </Stack>
 
-          <Button variant="primary" w="full" type="submit">
+          <Button
+            variant="primary"
+            w="full"
+            type="submit"
+            isLoading={authLogin.isLoading}
+          >
             Sign in
           </Button>
         </Stack>
