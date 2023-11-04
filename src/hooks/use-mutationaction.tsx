@@ -37,11 +37,11 @@ function useCustomMutation<
   const toast = useToast({
     position: "top-right",
     variant: "left-accent",
-    duration: 5000,
+    duration: 6000,
     isClosable: true,
     containerStyle: {
-      maxWidth: "400px",
-      fontSize: "nm",
+      maxWidth: "450px",
+      fontSize: "xs",
     },
   });
 

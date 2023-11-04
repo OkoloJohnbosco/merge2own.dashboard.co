@@ -42,11 +42,7 @@ const Login = () => {
   const authLogin = useAuthLogin();
 
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
-    console.log(data);
-    authLogin.mutateAsync({
-      email: "",
-      password: "",
-    });
+    authLogin.mutateAsync(data).catch(console.log);
   };
 
   return (

@@ -9,7 +9,7 @@ function useForgotPassword() {
     }
   >({
     method: "post",
-    endpoint: ENDPOINTS.AUTH_RESGISTER,
+    endpoint: ENDPOINTS.AUTH_FORGOT_PASSWORD,
   });
 }
 

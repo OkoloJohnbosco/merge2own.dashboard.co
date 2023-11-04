@@ -11,7 +11,7 @@ function useChagePassword() {
       confirm_password: string;
     }
   >({
-    method: "post",
+    method: "put",
     endpoint: ENDPOINTS.AUTH_RESGISTER,
   });
 }

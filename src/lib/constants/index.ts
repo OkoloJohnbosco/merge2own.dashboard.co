@@ -5,8 +5,8 @@ export const ENDPOINTS = {
   // Auth endpoints
   AUTH_INITIATE_SIGNIN: "auth/login",
   VERIFY_SIGNUP_DETAILS: "auth/verify/signup",
-  AUTH_RESGISTER: "api/user/create",
-  AUTH_FORGOT_PASSWORD: "api/auth/initiatePasswordReset",
+  AUTH_RESGISTER: "user/create",
+  AUTH_FORGOT_PASSWORD: "auth/initiatePasswordReset",
   // categories
   GET_CUSTOMER_TYPES: "user/customertypes",
 

@@ -17,7 +17,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 type Inputs = {
@@ -49,6 +49,7 @@ const Register = () => {
   const [value, setValue] = React.useState<string>("");
   const customerTypes = useGetCustomerTypes();
   const authRegister = useAuthRegister();
+  const navigate = useNavigate();
 
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
     authRegister
@@ -56,6 +57,7 @@ const Register = () => {
         ...data,
         customer_type_id: value,
       })
+      .then(() => navigate("/register/success"))
       .catch(console.log);
   };
 

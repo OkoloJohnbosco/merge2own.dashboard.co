@@ -1,4 +1,5 @@
 import CustomInput from "@/components/input";
+import useForgotPassword from "@/hooks/auth/use-forgot-password";
 import { Button, HStack, Heading, Stack, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -25,29 +26,9 @@ const ForgotPassword = () => {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
-
+  const forgotPassword = useForgotPassword();
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
-    console.log(data);
-    // signIn("credentials", {
-    //   redirect: false,
-    //   email: data.email,
-    //   password: data.password,
-    //   callbackUrl: "/login",
-    // }).then((res) => {
-    //   setIsLoading(false);
-    //   if (!res?.ok) {
-    //     return reqFailed();
-    //   }
-    //   setTimeout(() => {
-    //     reqWarning({
-    //       title: "Token Expired",
-    //       description: "Please login again",
-    //     });
-    //     signOut();
-    //   }, 86400000);
-    //   reqSuccess();
-    //   router.replace(query?.callbackUrl ? (query?.callbackUrl as string) : "/");
-    // });
+    forgotPassword.mutateAsync(data).catch(console.log);
   };
 
   return (
@@ -71,7 +52,12 @@ const ForgotPassword = () => {
             />
           </Stack>
 
-          <Button variant="primary" w="full" type="submit">
+          <Button
+            isLoading={forgotPassword.isLoading}
+            variant="primary"
+            w="full"
+            type="submit"
+          >
             Reset Password
           </Button>
         </Stack>
