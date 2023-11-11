@@ -5,7 +5,7 @@ import { createContext, useContext } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 interface AuthContextType {
-  userToken: string;
+  user: Record<string, unknown>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -19,17 +19,19 @@ export function useAuth() {
 }
 
 export function AuthProvider() {
-  const [value] = useLocalStorage<{ token: string }>(MERGE2OWN.USER, {
-    token: "",
-  });
+  const [value] = useLocalStorage<Record<string, unknown>>(
+    MERGE2OWN.USER,
+    // @ts-expect-error
+    null
+  );
   const { pathname } = useLocation();
 
-  if (value.token === "") {
+  if (!value) {
     return <Navigate to="/login" state={{ from: pathname }} replace />;
   }
 
   return (
-    <AuthContext.Provider value={{ userToken: value?.token }}>
+    <AuthContext.Provider value={{ user: value }}>
       <Outlet />
     </AuthContext.Provider>
   );

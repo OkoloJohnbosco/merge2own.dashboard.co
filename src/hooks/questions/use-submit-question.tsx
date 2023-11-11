@@ -5,8 +5,11 @@ function useSubmitQuestion() {
   return useCustomMutation<
     Record<string, unknown>,
     {
-      email: string;
-      password: string;
+      user_id: string;
+      question_responses: {
+        question_id: string;
+        question_answer: string;
+      }[];
     }
   >({
     method: "post",

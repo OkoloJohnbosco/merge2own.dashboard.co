@@ -51,8 +51,12 @@ const Login = () => {
     authLogin
       .mutateAsync(data)
       .then((res) => {
-        setValue({ token: res?.data?.data?.tokens?.access! });
-        navigate("/onboarding");
+        setValue({ ...res.data.data });
+        if (res.data.data.question_answered === "0") {
+          navigate("/onboarding");
+        } else {
+          navigate("/");
+        }
       })
       .catch(console.log);
   };

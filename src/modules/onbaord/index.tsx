@@ -6,6 +6,7 @@ import DynamicForm from "./dynamic-form";
 
 function OnboardingPage() {
   const getQuestions = useGetQuestions();
+
   return (
     <Stack spacing={10} pb={10}>
       <Stack py={6} borderBottom="1px solid" borderColor="gray.200">

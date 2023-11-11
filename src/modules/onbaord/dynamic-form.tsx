@@ -2,6 +2,9 @@ import CustomInput from "@/components/input";
 import CustomRadio from "@/components/input/custom-radio";
 import CustomSelect from "@/components/input/select";
 import Section from "@/components/section";
+import useLocalStorage from "@/hooks/hooks-ts/use-localstorage";
+import useSubmitQuestion from "@/hooks/questions/use-submit-question";
+import { MERGE2OWN } from "@/lib/constants";
 import { transformSchema } from "@/lib/utils/component.utils";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
@@ -15,6 +18,10 @@ const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
     setValue,
     clearErrors,
   } = useForm();
+  const postQuestions = useSubmitQuestion();
+  const [value] = useLocalStorage<{ token: string }>(MERGE2OWN.USER, {
+    token: "",
+  });
 
   const onSubmit = (data) => {
     const question_responses = transformSchema(questionData)
@@ -26,6 +33,11 @@ const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
         question_id: field.question_id,
         question_answer: field.question_answer,
       }));
+
+    postQuestions.mutateAsync({
+      user_id: "2",
+      question_responses,
+    });
   };
 
   const renderFormControl = (key, field) => {
@@ -138,7 +150,13 @@ const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
               placeholder=""
               type="date"
             />
-            <Button variant="primary" mt={4} w="full" type="submit">
+            <Button
+              isLoading={postQuestions.isLoading}
+              variant="primary"
+              mt={4}
+              w="full"
+              type="submit"
+            >
               Submit form
             </Button>
           </Stack>

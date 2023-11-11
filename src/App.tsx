@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "./App.css";
 import AuthLayout from "./components/layout/auth-layout";
 import OnBoardLayout from "./components/layout/onboard-layout";
+import { AuthProvider } from "./lib/context/auth";
 import ForgotPassword from "./modules/auth/forget-passowrd";
 import Login from "./modules/auth/login";
 import Register from "./modules/auth/register";
@@ -26,7 +27,9 @@ function App() {
 
       <Route element={<OnBoardLayout />}>
         <Route path="register/success" element={<SuccessPage />} />
-        <Route path="onboarding" element={<OnboardingPage />} />
+        <Route element={<AuthProvider />}>
+          <Route path="onboarding" element={<OnboardingPage />} />
+        </Route>
       </Route>
     </Routes>
   );
