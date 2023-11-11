@@ -1,4 +1,6 @@
+import useLocalStorage from "@/hooks/hooks-ts/use-localstorage";
 import useIsAuthenticated from "@/hooks/use-is-authenticated";
+import { MERGE2OWN } from "@/lib/constants";
 import {
   Box,
   Button,
@@ -18,6 +20,15 @@ import Sidebar from "../sidebar";
 function Navbar({ isSticky = true }: { isSticky?: boolean }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { isAuthenticated } = useIsAuthenticated();
+  const [value, setValue] = useLocalStorage<{ question_answered: string }>(
+    MERGE2OWN.USER,
+    {
+      question_answered: "",
+    }
+  );
+  // @ts-expect-error
+  const logout = () => setValue(null);
+  const toggleHandler = () => {};
   return (
     <Stack
       py={4}
@@ -39,23 +50,41 @@ function Navbar({ isSticky = true }: { isSticky?: boolean }) {
             textTransform="uppercase"
             fontSize="sm"
           >
-            <Button
-              fontWeight="bold"
-              as={Link}
-              textTransform="uppercase"
-              fontSize="11px"
-              rounded="10px"
-              outline="1px solid transparent"
-              _focus={{
-                outline: "1px solid white",
-                shadow: "0 0 0 3px #24694F",
-              }}
-              // rounded="full"
-              variant="primary"
-              to="/login"
-            >
-              {isAuthenticated ? "Logout" : "Register / Sign In"}
-            </Button>
+            {isAuthenticated ? (
+              <Button
+                fontWeight="bold"
+                textTransform="uppercase"
+                fontSize="11px"
+                rounded="10px"
+                outline="1px solid transparent"
+                _focus={{
+                  outline: "1px solid white",
+                  shadow: "0 0 0 3px #24694F",
+                }}
+                variant="primary"
+                onClick={logout}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Button
+                fontWeight="bold"
+                as={Link}
+                textTransform="uppercase"
+                fontSize="11px"
+                rounded="10px"
+                outline="1px solid transparent"
+                _focus={{
+                  outline: "1px solid white",
+                  shadow: "0 0 0 3px #24694F",
+                }}
+                // rounded="full"
+                variant="primary"
+                to="/login"
+              >
+                Register / Sign In
+              </Button>
+            )}
           </HStack>
           <IconButton
             size="sm"
