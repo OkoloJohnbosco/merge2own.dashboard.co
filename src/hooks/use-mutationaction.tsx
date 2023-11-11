@@ -30,14 +30,15 @@ function useCustomMutation<
     endpoint,
     showSuccessToast = true,
     showFailureToast = true,
+    message,
     ...others
   } = getMutationAction({
     ...mutationData,
   });
   const toast = useToast({
-    position: "top-right",
+    position: "top",
     variant: "left-accent",
-    duration: 6000,
+    duration: 10000,
     isClosable: true,
     containerStyle: {
       maxWidth: "450px",
@@ -64,10 +65,10 @@ function useCustomMutation<
     },
     onSettled: (res: QuikeeResponseType<P>, err: ResponseErrorType) => {
       if (err) mutatationResult.reset();
-      if (!err && showSuccessToast) {
+      if (!err && (showSuccessToast || message)) {
         toast({
-          title: `Request Successful`,
-          description: `${res?.data?.message}`,
+          title: message ? "" : `Request Successful`,
+          description: `${message ?? res?.data?.message}`,
           status: "success",
         });
       }

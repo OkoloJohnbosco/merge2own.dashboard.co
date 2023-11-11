@@ -14,6 +14,7 @@ function useSubmitQuestion() {
   >({
     method: "post",
     endpoint: ENDPOINTS.SUBMIT_QUESTIONS,
+    message: "Onboarding questions submitted successfully",
   });
 }
 

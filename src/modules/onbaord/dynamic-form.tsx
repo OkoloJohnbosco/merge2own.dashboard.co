@@ -8,6 +8,7 @@ import { MERGE2OWN } from "@/lib/constants";
 import { transformSchema } from "@/lib/utils/component.utils";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import schema from "./schema";
 
 const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
@@ -19,10 +20,10 @@ const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
     clearErrors,
   } = useForm();
   const postQuestions = useSubmitQuestion();
-  const [value] = useLocalStorage<{ token: string }>(MERGE2OWN.USER, {
-    token: "",
+  const [value] = useLocalStorage<{ id: string }>(MERGE2OWN.USER, {
+    id: "",
   });
-
+  const navigate = useNavigate();
   const onSubmit = (data) => {
     const question_responses = transformSchema(questionData)
       .map((field) => ({
@@ -34,10 +35,15 @@ const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
         question_answer: field.question_answer,
       }));
 
-    postQuestions.mutateAsync({
-      user_id: "2",
-      question_responses,
-    });
+    postQuestions
+      .mutateAsync({
+        user_id: value.id,
+        question_responses,
+      })
+      .then((res) => {
+        navigate("/");
+      })
+      .catch(console.log);
   };
 
   const renderFormControl = (key, field) => {
