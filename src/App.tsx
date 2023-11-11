@@ -16,9 +16,9 @@ import OnboardingPage from "./modules/onbaord";
 function App() {
   return (
     <Routes>
-      <Route element={<AuthProvider />}>
-        <Route path="/" element={<Home />} />
-      </Route>
+      <Route path="/" element={<Home />} />
+      {/* <Route element={<AuthProvider />}> */}
+      {/* </Route> */}
       <Route element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="forgot-password" element={<ForgotPassword />} />

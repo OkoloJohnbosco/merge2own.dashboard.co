@@ -5,7 +5,6 @@ import HowItWorks from "./components/how-it-works";
 import Interested from "./components/interested";
 import Navbar from "./components/navbar";
 import OwnerShip from "./components/ownership";
-import Partnership from "./components/partnership";
 import WhyMerge2Own from "./components/why-merge-own";
 
 function Home() {
@@ -14,7 +13,7 @@ function Home() {
       <Navbar />
       <OwnerShip />
       <AboutUs />
-      <Partnership />
+      {/* <Partnership /> */}
       <HowItWorks />
       <WhyMerge2Own />
       <Interested />
