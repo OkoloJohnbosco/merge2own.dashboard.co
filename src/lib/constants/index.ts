@@ -17,7 +17,9 @@ export const ENDPOINTS = {
   GET_QUESTIONS: "questions/fetch",
   SUBMIT_QUESTIONS: "questions/submit",
 };
-export const STOREID = "fbn46374683";
+export const MERGE2OWN = {
+  USER: "fbn46374683",
+};
 
 export const NAMESPACE = {
   GET_CUSTOMER_TYPES: "GET_CUSTOMER_TYPES",

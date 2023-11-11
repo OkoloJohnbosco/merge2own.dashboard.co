@@ -1,5 +1,7 @@
 import CustomInput from "@/components/input";
 import useAuthLogin from "@/hooks/auth/use-auth-login";
+import useLocalStorage from "@/hooks/hooks-ts/use-localstorage";
+import { MERGE2OWN } from "@/lib/constants";
 import {
   Button,
   Checkbox,
@@ -39,13 +41,19 @@ const Login = () => {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
+  // @ts-expect-error
+  const [value, setValue] = useLocalStorage(MERGE2OWN.USER);
+
   const navigate = useNavigate();
   const authLogin = useAuthLogin();
 
   const submitLoginRequest: SubmitHandler<Inputs> = (data: Inputs) => {
     authLogin
       .mutateAsync(data)
-      .then(() => navigate("/onboarding"))
+      .then((res) => {
+        setValue({ token: res?.data?.data?.tokens?.access! });
+        navigate("/onboarding");
+      })
       .catch(console.log);
   };
 

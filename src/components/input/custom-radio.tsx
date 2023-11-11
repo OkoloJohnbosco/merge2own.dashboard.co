@@ -2,13 +2,21 @@ import { InputWrapperProps } from "@/types/component.types";
 import { InputProps, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
-import { UseFormSetValue, get } from "react-hook-form";
+import {
+  FieldValues,
+  UseFormClearErrors,
+  UseFormSetValue,
+  get,
+} from "react-hook-form";
 
 export type Ref = HTMLInputElement;
 
 const CustomRadio = React.forwardRef<
   Ref,
-  InputProps & { setValue: UseFormSetValue<any> } & InputWrapperProps
+  InputProps & {
+    setValue: UseFormSetValue<any>;
+    clearErrors: UseFormClearErrors<FieldValues>;
+  } & InputWrapperProps
 >(
   (
     {
@@ -21,50 +29,36 @@ const CustomRadio = React.forwardRef<
       placeholder,
       isDisabled,
       setValue,
+      clearErrors,
+      errors,
       ...others
     },
     ref
   ) => {
-    const [error, setError] = React.useState({});
-
-    React.useEffect(() => {
-      if (others.errors) {
-        const errKeys = Object.keys(others.errors);
-        if (errKeys.includes(name)) {
-          setError({
-            [name]: others?.errors?.[name],
-          });
-        }
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [others.errors]);
-    // console.log(name, "from radio");
-
     return (
       <Stack maxW="300px" pos="relative" pb={2}>
         <RadioGroup
-          ref={ref}
           size="sm"
           name={name}
           onChange={(e) => {
             if (e) {
-              setValue(name, e);
-              setError({});
+              setValue(name, e, { shouldValidate: true });
+              clearErrors(name);
             }
           }}
         >
           <Stack direction="row">
             {options &&
               options.map((option) => (
-                <Radio key={option.value} value={option.value}>
+                <Radio ref={ref} key={option.label} value={option.label}>
                   {option.label}
                 </Radio>
               ))}
           </Stack>
         </RadioGroup>
-        {get(error, name) && (
+        {get(errors, name) && (
           <ErrorMessage
-            errors={error}
+            errors={errors}
             name={name}
             render={({ message }) => {
               //   console.log(error, "errors");

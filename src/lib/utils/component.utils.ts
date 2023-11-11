@@ -73,7 +73,7 @@ export const transformSchema = (data: typeof schema) =>
       options: item.options,
       question_type: item.question_type,
       question_text: item.question_text,
-      id: item.question_id,
+      question_id: item.question_id,
       validation: {
         required: "Last Name is required",
       },

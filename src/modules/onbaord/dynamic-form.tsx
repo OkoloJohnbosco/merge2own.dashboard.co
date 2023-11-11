@@ -7,24 +7,25 @@ import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import schema from "./schema";
 
-const DynamicForm = () => {
+const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues,
+    clearErrors,
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-  };
-
-  console.log(getValues(), "getValues()");
-
-  const handleInputChange = (event, key) => {
-    console.log(event, "from key");
-    setValue(key, event);
+    const question_responses = transformSchema(questionData)
+      .map((field) => ({
+        ...field,
+        question_answer: data[field.key],
+      }))
+      .map((field) => ({
+        question_id: field.question_id,
+        question_answer: field.question_answer,
+      }));
   };
 
   const renderFormControl = (key, field) => {
@@ -39,11 +40,12 @@ const DynamicForm = () => {
           >
             <Heading fontSize="sm">Question {field.position}</Heading>
             <Text>{field.question_text}</Text>
-            <Stack maxW="300px">
+            <Stack maxW="300px" pt={2}>
               <CustomInput
-                label={field.question_type}
+                // label={field.question_type}
                 {...register(key, { required: "answer is required" })}
                 errors={errors}
+                placeholder="fill in the field"
               />
             </Stack>
           </Stack>
@@ -58,14 +60,15 @@ const DynamicForm = () => {
           >
             <Heading fontSize="sm">Question {field.position}</Heading>
             <Text>{field.question_text}</Text>
-            <Stack maxW="300px">
+            <Stack maxW="300px" pt={2}>
               <CustomSelect
-                label={field.question_type}
+                placeholder="fill in the field"
+                // label={field.question_type}
                 {...register(key, { required: "answer is required" })}
                 errors={errors}
                 options={field.options.map((item) => ({
                   label: item.option_text,
-                  value: item.option_id,
+                  value: item.option_text,
                 }))}
               />
             </Stack>
@@ -78,15 +81,15 @@ const DynamicForm = () => {
               <Heading fontSize="sm">Question {field.position}</Heading>
               <Text>{field.question_text}</Text>
               <CustomRadio
-                // {...register(key, { required: "answer is required" })}
+                {...register(key, { required: "answer is required" })}
                 ref={register(key, { required: "answer is required" }).ref}
                 errors={errors}
-                name={key}
                 options={field.options.map((item) => ({
                   label: item.option_text,
                   value: item.option_id,
                 }))}
                 setValue={setValue}
+                clearErrors={clearErrors}
               />
             </Stack>
           </div>
@@ -99,7 +102,7 @@ const DynamicForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Section spacing={7}>
-        {transformSchema(schema).map((field) =>
+        {transformSchema(questionData).map((field) =>
           renderFormControl(field.key, field)
         )}
         <Stack spacing={10}>
@@ -123,19 +126,19 @@ const DynamicForm = () => {
               policy.
             </Text>
             <CustomInput
-              {...register("name", { required: "answer is required" })}
+              {...register("name", { required: "name is required" })}
               errors={errors}
               label="Please enter your initials or spell out your full name"
               placeholder="Joe Anderson"
             />
             <CustomInput
-              {...register("date", { required: "answer is required" })}
+              {...register("date", { required: "date is required" })}
               errors={errors}
               label="Date"
               placeholder=""
               type="date"
             />
-            <Button variant="primary" w="full" type="submit">
+            <Button variant="primary" mt={4} w="full" type="submit">
               Submit form
             </Button>
           </Stack>
