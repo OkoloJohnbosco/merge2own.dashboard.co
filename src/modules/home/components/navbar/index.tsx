@@ -1,3 +1,4 @@
+import useIsAuthenticated from "@/hooks/use-is-authenticated";
 import {
   Box,
   Button,
@@ -16,6 +17,7 @@ import Sidebar from "../sidebar";
 
 function Navbar({ isSticky = true }: { isSticky?: boolean }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { isAuthenticated } = useIsAuthenticated();
   return (
     <Stack
       py={4}
@@ -52,7 +54,7 @@ function Navbar({ isSticky = true }: { isSticky?: boolean }) {
               variant="primary"
               to="/login"
             >
-              Register / Sign In
+              {isAuthenticated ? "Logout" : "Register / Sign In"}
             </Button>
           </HStack>
           <IconButton

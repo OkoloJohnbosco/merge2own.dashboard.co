@@ -20,8 +20,12 @@ const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
     clearErrors,
   } = useForm();
   const postQuestions = useSubmitQuestion();
-  const [value] = useLocalStorage<{ id: string }>(MERGE2OWN.USER, {
+  const [value, setUserValue] = useLocalStorage<{
+    id: string;
+    question_answered: string;
+  }>(MERGE2OWN.USER, {
     id: "",
+    question_answered: "",
   });
   const navigate = useNavigate();
   const onSubmit = (data) => {
@@ -41,6 +45,10 @@ const DynamicForm = ({ questionData }: { questionData: typeof schema }) => {
         question_responses,
       })
       .then((res) => {
+        setUserValue({
+          ...value,
+          question_answered: "1",
+        });
         navigate("/");
       })
       .catch(console.log);
